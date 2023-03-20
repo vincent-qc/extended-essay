@@ -15,19 +15,30 @@ fan_pin = 12
 GPIO.setup(fan_pin, GPIO.OUT)
 fan_ctrl = GPIO.PWM(fan_pin, 50)
 fan_ctrl.start(50);
-
 fan_ctrl.ChangeDutyCycle(0)
 
+def start_record(percent):
+    fan_ctrl.ChangeDutyCycle(percent)
+    input("Press Enter to start recording...")
+    print("Recording...")
 
+    temp = max31855.temperature
+    while temp > 80:
+        temp = max31855.temperature
 
-percent = int(input("Enter a fan speed (10 - 100)"))
+    print("Temperature 80C reached...")
+    time.sleep(30)
 
-fan_ctrl.ChangeDutyCycle(percent)
+    temp_end = max31855.temperature
 
+    print("Recording stopped with final temperature of {}C".format(temp_end))
 
-while True:
-    tempC = max31855.temperature
-    tempF = tempC * 9 / 5 + 32
-    print("Temperature: {} C {} F ".format(tempC, tempF))
-    time.sleep(0.5)
+speed = int(input("Enter a fan speed (500 - 1500)"))
+
+while speed > 500:
+    percent = (speed / 1500) * 100
+    start_record(percent)
+    speed -= 100
+
+print("Finished data collection.")
 
