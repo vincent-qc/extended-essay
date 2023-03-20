@@ -1,5 +1,3 @@
-# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
-# SPDX-License-Identifier: MIT
 import csv
 import time
 import board
@@ -32,7 +30,7 @@ def start_record(speed):
 
     temp_end = max31855.temperature
 
-    with open('trial_{}.csv'.format(trial), 'a') as f:
+    with open('data/trial_{}.csv'.format(trial), 'a') as f:
         writer = csv.writer(f)
         writer.writerow([speed, temp_end])
 
@@ -42,7 +40,7 @@ def start_record(speed):
 speed = int(input("Enter a fan speed (500 - 1500)"))
 trial = int(input("Enter a trial number"))
 
-while speed > 500:
+while speed >= 500:
     start_record(speed)
     speed -= 100
 
