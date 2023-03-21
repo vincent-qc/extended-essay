@@ -18,15 +18,38 @@ fan_ctrl.ChangeDutyCycle(0)
 def start_record(speed):
     percent = (speed / 1500) * 100
     fan_ctrl.ChangeDutyCycle(percent)
-    input("Press Enter to start recording...")
-    print("Recording...")
+    input("Press Enter to start process...")
+    print("Starting process... Waiting for copper block to cool to 75C...")
 
-    temp = max31855.temperature
-    while temp > 80:
-        temp = max31855.temperature
+    # Init variables to check if thermocouple reads max temp
+    temp_1 = max31855.temperature
+    time.sleep(1)
+    temp_2 = max31855.temperature
 
-    print("Temperature 80C reached...")
-    time.sleep(30)
+    # Loops until the thermocouple read max temp
+    counter = 0
+    while temp_2 >= temp_1:
+        temp_1 = temp_2
+        time.sleep(1)
+        temp_2 = max31855.temperature
+        counter += 1
+
+        if counter % 10 == 0:
+            print("Waiting for thermocouple to read max temp, currently at {}C".format(temp_2))
+
+
+    counter = 0
+    while max31855.temperature > 75:
+        counter += 1
+
+        if counter % 10 == 0:
+            print("Waiting for temperature to drop, current temperature is {}C".format(max31855.temperature))
+
+    print("Temperature 75C reached...")
+    
+    for i in range(1, 180):
+        if i % 10 == 0:
+            print("Recording for {} seconds, ".format(i) + "temperature is {}C".format(max31855.temperature))
 
     temp_end = max31855.temperature
 
