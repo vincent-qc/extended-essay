@@ -13,7 +13,7 @@ fan_pin = 12
 GPIO.setup(fan_pin, GPIO.OUT)
 fan_ctrl = GPIO.PWM(fan_pin, 50)
 fan_ctrl.start(50);
-fan_ctrl.ChangeDutyCycle(0)
+fan_ctrl.ChangeDutyCycle(100)
 
 while True:
     print(max31855.temperature)

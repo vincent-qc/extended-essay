@@ -39,17 +39,17 @@ def start_record(speed):
 
 
     counter = 0
-    while max31855.temperature > 75:
+    while max31855.temperature > 60:
         counter += 1
-        time.sleep(0.2)
+        time.sleep(0.05)
         if counter % 25 == 0:
             print("Waiting for temperature to drop, current temperature is {}C".format(max31855.temperature))
 
-    print("Temperature 75C reached...")
+    print("Temperature 60C reached...")
 
-    for i in range(1, 300):
+    for i in range(1, 60):
         time.sleep(1)
-        if i % 10 == 0:
+        if i % 5 == 0:
             print("Recording for {} seconds, ".format(i) + "temperature is {}C".format(max31855.temperature))
 
     temp_end = max31855.temperature
