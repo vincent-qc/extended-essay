@@ -18,7 +18,7 @@ fan_ctrl.ChangeDutyCycle(0)
 def start_record(speed):
     percent = (speed / 1500) * 100
     fan_ctrl.ChangeDutyCycle(percent)
-    input("Press Enter to start process...")
+    input("Press Enter to start process... (speed: {})".format(speed))
     print("Starting process... Waiting for thermocouple to read max temp...")
 
     # Init variables to check if thermocouple reads max temp
