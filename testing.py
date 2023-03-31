@@ -12,8 +12,10 @@ max31855 = adafruit_max31855.MAX31855(spi, cs)
 fan_pin = 12
 GPIO.setup(fan_pin, GPIO.OUT)
 fan_ctrl = GPIO.PWM(fan_pin, 50)
-fan_ctrl.start(50);
-fan_ctrl.ChangeDutyCycle(0)
+fan_ctrl.start(0);
+
+speed = input("Enter speed (500 - 1500)...")
+fan_ctrl.ChangeDutyCycle((speed / 1500) * 100)
 
 while True:
     print(max31855.temperature)
