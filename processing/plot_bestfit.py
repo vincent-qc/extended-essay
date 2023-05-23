@@ -30,6 +30,8 @@ def f(x, a, b, c, d):
 
 popt, pcov = curve_fit(f, x_p, y_p, [(60 - 23), 0, 23, 3])
 
+print(popt)
+
 ##### Plot the model #####
 # Fan Speed
 x_m = np.linspace(350, 1750, 1400)
