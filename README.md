@@ -1,4 +1,4 @@
-# Extended-Essay
+# An Extended Essay in Physics (M24)
 IB Physics EE thermocouple data collection, fan-control, and visualization code.
 
 ## Setup
